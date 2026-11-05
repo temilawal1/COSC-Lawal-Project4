@@ -117,7 +117,38 @@ public class CoffeeMakerTest {
 
     @Test
     public void makeCoffeeTest() {
+        
+        int amt_paid = 10;
+        int change = coffeeMaker.makeCoffee(recipe, amt_paid);
 
+        assertEquals(2, change);
+        // if paid amt is sufficient
+        // if ingredients available
+    }
+
+    @Test
+    public void makeCoffeeInsufficientFundsTest() {
+        
+        int amt_paid = 3;
+        int change = coffeeMaker.makeCoffee(recipe, amt_paid);
+
+        assertEquals(3, change); // returns amt paid if insuff funds
+        // if paid amt is sufficient
+        // if ingredients available
+    }
+
+    @Test
+    public void makeCoffeeNoIngredientsTest() {
+        
+        
+        int amt_paid = 10;
+        recipe.setAmtCoffee(20);
+        int change = coffeeMaker.makeCoffee(recipe, amt_paid);
+
+        assertEquals(10, change);
+
+        // if paid amt is sufficient
+        // if ingredients available
     }
 
     @Test
