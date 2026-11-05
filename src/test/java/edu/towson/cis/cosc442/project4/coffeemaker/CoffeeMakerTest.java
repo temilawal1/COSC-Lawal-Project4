@@ -10,6 +10,7 @@ public class CoffeeMakerTest {
 
     private CoffeeMaker coffeeMaker;
     private Recipe recipe;
+    private Recipe recipe2;
     private Inventory inventory;
 
     @BeforeEach
@@ -24,6 +25,14 @@ public class CoffeeMakerTest {
         recipe.setAmtMilk(2);
         recipe.setAmtSugar(3);
         recipe.setAmtChocolate(1);
+
+        recipe2 = new Recipe();
+        recipe2.setName("Recipe2");
+        recipe2.setPrice(4);
+        recipe2.setAmtCoffee(3);
+        recipe2.setAmtMilk(1);
+        recipe2.setAmtSugar(2);
+        recipe2.setAmtChocolate(2);
     }
 
     @Test
@@ -36,34 +45,26 @@ public class CoffeeMakerTest {
     @Test
     public void addRecipeAlreadyExistsTest() {
 
-        Recipe recipe2 = new Recipe();
-        recipe2.setName("Recipe");
-        recipe2.setPrice(4);
-        recipe2.setAmtCoffee(1);
-        recipe2.setAmtMilk(2);
-        recipe2.setAmtSugar(3);
-        recipe2.setAmtChocolate(1);
-
         coffeeMaker.addRecipe(recipe);
 
-        assertFalse(coffeeMaker.addRecipe(recipe2));
+        Recipe duplicate_recipe = new Recipe();
+        duplicate_recipe.setName("Recipe");
+        duplicate_recipe.setPrice(4);
+
+        assertFalse(coffeeMaker.addRecipe(duplicate_recipe));
     }
 
     @Test
     public void addRecipeNoSpaceTest() {
 
         for (int i = 0; i < 4 /* max num recipes */; i++) {
-            Recipe recipe = new Recipe();
-            recipe.setName("Recipe" + i);
-            recipe.setPrice(4);
+            Recipe filler_recipe = new Recipe();
+            filler_recipe.setName("Recipe" + i);
+            filler_recipe.setPrice(4);
 
-            assertTrue(coffeeMaker.addRecipe(recipe));
+            assertTrue(coffeeMaker.addRecipe(filler_recipe));
 
         }
-
-        Recipe recipe2 = new Recipe();
-        recipe2.setName("Recipe2");
-        recipe2.setPrice(4);
 
         assertFalse(coffeeMaker.addRecipe(recipe2));
     }
@@ -78,19 +79,11 @@ public class CoffeeMakerTest {
     @Test
     public void deleteRecipeDoesntExistTest() {
 
-        Recipe recipe2 = new Recipe();
-        recipe2.setName("Recipe2");
-        recipe2.setPrice(4);
-
         assertFalse(coffeeMaker.deleteRecipe(recipe2));
     }
 
     @Test
     public void editRecipeTest() {
-
-        Recipe recipe2 = new Recipe();
-        recipe2.setName("Recipe2");
-        recipe2.setPrice(4);
 
         coffeeMaker.addRecipe(recipe);
 
@@ -153,12 +146,26 @@ public class CoffeeMakerTest {
 
     @Test
     public void getRecipeTest() {
+        // returns array of recipes stored in coffee maker
 
+        coffeeMaker.addRecipe(recipe);
+        coffeeMaker.addRecipe(recipe2);
+
+        Recipe[] recipes = coffeeMaker.getRecipes();
+        assertEquals(recipe, recipes[0]);
+        assertEquals(recipe2, recipes[1]);
     }
 
     @Test
     public void getRecipeByNameTest() {
+        // finds recipe with name and return it
+        // empty recipe if no recipes
 
+        coffeeMaker.addRecipe(recipe);
+
+        Recipe recipe_name = coffeeMaker.getRecipeForName(recipe.getName());
+
+        assertEquals(recipe, recipe_name);
     }
 
 }
