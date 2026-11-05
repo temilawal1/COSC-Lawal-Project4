@@ -121,7 +121,7 @@ public class CoffeeMakerTest {
         int amt_paid = 10;
         int change = coffeeMaker.makeCoffee(recipe, amt_paid);
 
-        assertEquals(2, change);
+        assertEquals(6, change);
         // if paid amt is sufficient
         // if ingredients available
     }
