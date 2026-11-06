@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 public class CoffeeMakerTest {
 
@@ -57,9 +59,9 @@ public class CoffeeMakerTest {
     @Test
     public void addRecipeNoSpaceTest() {
 
-        for (int i = 0; i < 4 /* max num recipes */; i++) {
+        for (int i = 0; i < 3 /* max num recipes */; i++) {
             Recipe filler_recipe = new Recipe();
-            filler_recipe.setName("Recipe" + i);
+            filler_recipe.setName("Recipe_" + i);
             filler_recipe.setPrice(4);
 
             assertTrue(coffeeMaker.addRecipe(filler_recipe));
@@ -80,14 +82,21 @@ public class CoffeeMakerTest {
     public void deleteRecipeDoesntExistTest() {
 
         assertFalse(coffeeMaker.deleteRecipe(recipe2));
+        assertFalse(coffeeMaker.deleteRecipe(null));
     }
 
     @Test
     public void editRecipeTest() {
 
         coffeeMaker.addRecipe(recipe);
-
         assertTrue(coffeeMaker.editRecipe(recipe, recipe2));
+
+        coffeeMaker.addRecipe(recipe2);
+        Recipe duplicate_recipe = new Recipe();
+        duplicate_recipe.setName("Recipe2");
+
+        assertFalse(coffeeMaker.editRecipe(recipe, duplicate_recipe));
+        // shouldnt work cuz recipe2 already exists
     }
 
     @Test
@@ -101,16 +110,29 @@ public class CoffeeMakerTest {
         assertTrue(coffeeMaker.addInventory(coffee, milk, sugar, chocolate));
     }
 
+    @ParameterizedTest
+    @CsvSource({
+            "-1, 0, 0, 0",
+            "0, -1, 0, 0",
+            "0, 0, -1, 0",
+            "0, 0, 0, -1"
+    })
+    public void addInventoryInvalidAmountTest(int coffee, int milk, int sugar, int chocolate) {
+        assertFalse(coffeeMaker.addInventory(coffee, milk, sugar, chocolate));
+    }
+
     @Test
     public void checkInventoryTest() {
 
-        assertEquals("Coffee: " + inventory.getCoffee() + "\n" + "Milk: " + inventory.getMilk() + "\n" + "Sugar: " + inventory.getSugar() + "\n" + "Chocolate: " + inventory.getChocolate() + "\n",
+        assertEquals(
+                "Coffee: " + inventory.getCoffee() + "\n" + "Milk: " + inventory.getMilk() + "\n" + "Sugar: "
+                        + inventory.getSugar() + "\n" + "Chocolate: " + inventory.getChocolate() + "\n",
                 coffeeMaker.checkInventory().toString());
     }
 
     @Test
     public void makeCoffeeTest() {
-        
+
         int amt_paid = 10;
         int change = coffeeMaker.makeCoffee(recipe, amt_paid);
 
@@ -121,7 +143,7 @@ public class CoffeeMakerTest {
 
     @Test
     public void makeCoffeeInsufficientFundsTest() {
-        
+
         int amt_paid = 3;
         int change = coffeeMaker.makeCoffee(recipe, amt_paid);
 
@@ -132,8 +154,7 @@ public class CoffeeMakerTest {
 
     @Test
     public void makeCoffeeNoIngredientsTest() {
-        
-        
+
         int amt_paid = 10;
         recipe.setAmtCoffee(20);
         int change = coffeeMaker.makeCoffee(recipe, amt_paid);
@@ -168,4 +189,12 @@ public class CoffeeMakerTest {
         assertEquals(recipe, recipe_name);
     }
 
+    @Test
+    public void getRecipeByNameDoesntExistTest() {
+        coffeeMaker.addRecipe(recipe);
+
+        Recipe recipe_name = coffeeMaker.getRecipeForName("doesnt exist");
+
+        assertEquals(null, recipe_name.getName());
+    }
 }

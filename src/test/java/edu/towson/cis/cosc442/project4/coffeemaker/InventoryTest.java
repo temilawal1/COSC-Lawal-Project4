@@ -28,8 +28,11 @@ public class InventoryTest {
 
         assertTrue(inventory.enoughIngredients(recipe));
 
-        recipe.setAmtCoffee(20);
 
+        recipe.setAmtCoffee(20);
+        recipe.setAmtMilk(20);
+        recipe.setAmtSugar(20);
+        recipe.setAmtChocolate(20);
         assertFalse(inventory.enoughIngredients(recipe));
     }
 
@@ -54,28 +57,28 @@ public class InventoryTest {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = { 0, 5, 10, 15 })
+    @ValueSource(ints = { 0, 15, 20 })
     public void testSetCoffee(int amt) {
         inventory.setCoffee(amt);
         assertEquals(amt, inventory.getCoffee());
     }
 
     @ParameterizedTest
-    @ValueSource(ints = { 0, 5, 10, 15 })
+    @ValueSource(ints = { 0, 15, 20 })
     public void testSetMilk(int amt) {
         inventory.setMilk(amt);
         assertEquals(amt, inventory.getMilk());
     }
 
     @ParameterizedTest
-    @ValueSource(ints = { 0, 5, 10, 15 })
+    @ValueSource(ints = { 0, 15, 20 })
     public void testSetSugar(int amt) {
         inventory.setSugar(amt);
         assertEquals(amt, inventory.getSugar());
     }
 
     @ParameterizedTest
-    @ValueSource(ints = { 0, 5, 10, 15 })
+    @ValueSource(ints = { 0, 15, 20})
     public void testSetChocolate(int amt) {
         inventory.setChocolate(amt);
         assertEquals(amt, inventory.getChocolate());
