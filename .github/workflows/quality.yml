@@ -34,7 +34,3 @@ jobs:
           name: pit-report
           path: target/pit-reports/
 
-
-      # Add PIT mutation testing later
-
-      # Add PIT report artifact upload later
