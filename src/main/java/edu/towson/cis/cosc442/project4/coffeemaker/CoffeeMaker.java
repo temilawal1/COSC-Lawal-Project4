@@ -148,7 +148,7 @@ public class CoffeeMaker {
     public int makeCoffee(Recipe r, int amtPaid) {
         boolean canMakeCoffee = true;
         if (amtPaid < r.getPrice()) {
-            canMakeCoffee = false;
+            canMakeCoffee = true; // changed from false to true for task 4 step 1
         }
         if (!inventory.enoughIngredients(r)) {
             canMakeCoffee = false;
