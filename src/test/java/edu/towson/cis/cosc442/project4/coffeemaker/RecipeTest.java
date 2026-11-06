@@ -58,6 +58,9 @@ public class RecipeTest {
         recipe.setAmtChocolate(2);
         assertEquals(2, recipe.getAmtChocolate());
 
+        recipe.setAmtChocolate(0);
+        assertEquals(0, recipe.getAmtChocolate());
+
         recipe.setAmtChocolate(-2);
         assertEquals(0, recipe.getAmtChocolate());
     }
@@ -66,6 +69,10 @@ public class RecipeTest {
     public void testSetAmtCoffee() {
         recipe.setAmtCoffee(2);
         assertEquals(2, recipe.getAmtCoffee());
+
+        recipe.setAmtCoffee(0);
+        assertEquals(0, recipe.getAmtCoffee());
+
         recipe.setAmtCoffee(-2);
         assertEquals(0, recipe.getAmtCoffee());
     }
@@ -74,6 +81,10 @@ public class RecipeTest {
     public void testSetAmtMilk() {
         recipe.setAmtMilk(2);
         assertEquals(2, recipe.getAmtMilk());
+
+        recipe.setAmtMilk(0);
+        assertEquals(0, recipe.getAmtMilk());
+
         recipe.setAmtMilk(-2);
         assertEquals(0, recipe.getAmtMilk());
     }
@@ -82,6 +93,10 @@ public class RecipeTest {
     public void testSetAmtSugar() {
         recipe.setAmtSugar(2);
         assertEquals(2, recipe.getAmtSugar());
+
+        recipe.setAmtSugar(0);
+        assertEquals(0, recipe.getAmtSugar());
+
         recipe.setAmtSugar(-2);
         assertEquals(0, recipe.getAmtSugar());
     }
@@ -106,11 +121,23 @@ public class RecipeTest {
         recipe2.setName("Recipe");
         assertTrue(recipe.equals(recipe2));
 
+    }
+
+    @Test
+    public void testEqualsMethodDifferentName() {
+
+        recipe.setName("Recipe");
         recipe2.setName("Recipe2");
         assertFalse(recipe.equals(recipe2));
 
-        recipe2.setName(null);
+    }
+
+    @Test
+    public void testEqualsMethodNullName() {
+
+        recipe2.setName("Recipe2");
         assertFalse(recipe.equals(recipe2));
+
     }
 
     @Test

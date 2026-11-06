@@ -28,12 +28,30 @@ public class InventoryTest {
 
         assertTrue(inventory.enoughIngredients(recipe));
 
+    }
+
+    @Test
+    public void testNotEnoughIngredients() {
+        
+        Recipe recipe = new Recipe();
 
         recipe.setAmtCoffee(20);
         recipe.setAmtMilk(20);
         recipe.setAmtSugar(20);
         recipe.setAmtChocolate(20);
         assertFalse(inventory.enoughIngredients(recipe));
+    }
+
+    @Test
+    public void testExactIngredients() {
+        
+        Recipe recipe = new Recipe();
+        
+        recipe.setAmtCoffee(15);
+        recipe.setAmtMilk(15);
+        recipe.setAmtSugar(15);
+        recipe.setAmtChocolate(15);
+        assertTrue(inventory.enoughIngredients(recipe));
     }
 
     @Test

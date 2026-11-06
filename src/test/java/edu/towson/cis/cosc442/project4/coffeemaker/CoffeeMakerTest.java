@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 public class CoffeeMakerTest {
 
@@ -108,6 +109,12 @@ public class CoffeeMakerTest {
         int chocolate = 2;
 
         assertTrue(coffeeMaker.addInventory(coffee, milk, sugar, chocolate));
+
+        assertEquals(18, coffeeMaker.checkInventory().getCoffee());
+        assertEquals(17, coffeeMaker.checkInventory().getMilk());
+        assertEquals(17, coffeeMaker.checkInventory().getSugar());
+        assertEquals(17, coffeeMaker.checkInventory().getChocolate());
+        // checking if inventory actually increased
     }
 
     @ParameterizedTest
@@ -119,6 +126,19 @@ public class CoffeeMakerTest {
     })
     public void addInventoryInvalidAmountTest(int coffee, int milk, int sugar, int chocolate) {
         assertFalse(coffeeMaker.addInventory(coffee, milk, sugar, chocolate));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "0, 2, 3, 4",
+            "2, 0, 3, 4",
+            "2, 3, 0, 4",
+            "2, 3, 4, 0"
+    })
+    void addInventoryZeroAmountTest(
+            int coffee, int milk, int sugar, int chocolate) {
+
+        assertTrue(coffeeMaker.addInventory(coffee, milk, sugar, chocolate));
     }
 
     @Test
@@ -139,6 +159,24 @@ public class CoffeeMakerTest {
         assertEquals(6, change);
         // if paid amt is sufficient
         // if ingredients available
+    }
+
+    @ParameterizedTest 
+    @ValueSource (ints = {4, 10})
+    public void makeCoffeeTest(int amt_paid) {
+
+        int change = coffeeMaker.makeCoffee(recipe, amt_paid);
+
+        int expected_change = amt_paid - recipe.getPrice();
+
+        assertEquals(expected_change, change);
+
+        assertEquals(14, coffeeMaker.checkInventory().getCoffee());
+        assertEquals(13, coffeeMaker.checkInventory().getMilk());
+        assertEquals(12, coffeeMaker.checkInventory().getSugar());
+        assertEquals(14, coffeeMaker.checkInventory().getChocolate());
+        // checking if inventory actually increased
+
     }
 
     @Test
