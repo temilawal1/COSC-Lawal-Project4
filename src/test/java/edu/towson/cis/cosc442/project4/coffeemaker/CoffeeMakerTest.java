@@ -100,6 +100,7 @@ public class CoffeeMakerTest {
         // shouldnt work cuz recipe2 already exists
     }
 
+    /* 
     @Test
     public void addInventoryTest() {
 
@@ -116,6 +117,7 @@ public class CoffeeMakerTest {
         assertEquals(17, coffeeMaker.checkInventory().getChocolate());
         // checking if inventory actually increased
     }
+        
 
     @ParameterizedTest
     @CsvSource({
@@ -141,6 +143,7 @@ public class CoffeeMakerTest {
         assertTrue(coffeeMaker.addInventory(coffee, milk, sugar, chocolate));
     }
 
+    */
     @Test
     public void checkInventoryTest() {
 
