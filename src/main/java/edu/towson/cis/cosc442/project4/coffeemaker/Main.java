@@ -12,7 +12,7 @@ public class Main {
 	 * maker actions.
 	 */
 	public static void mainMenu() {
-		System.out.println("1. Add a recipe");
+		System.out.println("1. Add a recipe"); 
 		System.out.println("2. Delete a recipe");
 		System.out.println("3. Edit a recipe");
 		System.out.println("4. Add inventory");
