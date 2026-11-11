@@ -100,7 +100,7 @@ public class CoffeeMakerTest {
         // shouldnt work cuz recipe2 already exists
     }
 
-    /* 
+    
     @Test
     public void addInventoryTest() {
 
@@ -143,7 +143,7 @@ public class CoffeeMakerTest {
         assertTrue(coffeeMaker.addInventory(coffee, milk, sugar, chocolate));
     }
 
-    */
+    
     @Test
     public void checkInventoryTest() {
 
