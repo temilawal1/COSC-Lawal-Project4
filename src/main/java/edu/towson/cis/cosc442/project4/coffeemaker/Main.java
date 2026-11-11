@@ -57,7 +57,7 @@ public class Main {
 		// Read in amt coffee
 		String coffeeString = inputOutput("\nPlease enter the units of coffee in the recipe: ");
 		int amtCoffee = stringToInt(coffeeString);
-		if (amtCoffee > 0) { // deliberate issue
+		if (amtCoffee < 0) {
 			mainMenu();
 		}
 
